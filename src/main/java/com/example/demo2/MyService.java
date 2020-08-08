@@ -1,5 +1,7 @@
 package com.example.demo2;
 
+import java.time.Duration;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -26,6 +28,8 @@ public class MyService {
 	private Mono<Page> doRequest(Integer page) {
 		return client.get().uri("/api/users?page={i}", page)
 				.retrieve()
-				.bodyToMono(Page.class);
+				.bodyToMono(Page.class)
+				.timeout(Duration.ofMillis(10000L))
+				.onErrorReturn(new Page());
 	}
 }
