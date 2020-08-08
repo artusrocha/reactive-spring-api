@@ -13,12 +13,12 @@ public class Page {
 	public Page(int i) {
 		this.page = i;
 	}
-	
+
 	private Integer page;
 	private Integer per_page;
 	private Integer total;
 	private Integer total_pages;
-	
+
 	public Integer getPer_page() {
 		return per_page;
 	}
