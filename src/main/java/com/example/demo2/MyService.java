@@ -13,23 +13,24 @@ public class MyService {
 	private static String baseUrl = "https://reqres.in";
 	private static WebClient client = WebClient.create(baseUrl);
 
-	public Mono<Page> get1() {
+	public Page get1() {
 		return doRequest(1);
 	}
 
-	public Mono<Page> get2() {
+	public Page get2() {
 		return doRequest(2);
 	}
 
-	public Mono<Page> get3() {
+	public Page get3() {
 		return doRequest(3);
 	}
 
-	private Mono<Page> doRequest(Integer page) {
+	private Page doRequest(Integer page) {
 		return client.get().uri("/api/users?page={i}", page)
 				.retrieve()
 				.bodyToMono(Page.class)
 				.timeout(Duration.ofMillis(10000L))
-				.onErrorReturn(new Page());
+				.onErrorReturn(new Page())
+				.block();
 	}
 }
